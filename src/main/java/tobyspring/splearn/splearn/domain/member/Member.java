@@ -1,21 +1,35 @@
 package tobyspring.splearn.splearn.domain.member;
 
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
 
 import java.util.Objects;
 
 import static org.springframework.util.Assert.state;
 
+@Entity
 @Getter
 @ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NaturalIdCache // 영속성 컨텍스트에서 체크가 된다.
 public class Member {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
+
+    @Embedded
+    @NaturalId
     private Email email;
     private String nickname;
     private String passwordHash;
-    private MemberStatus status;
 
-    private Member() {}
+    @Enumerated(EnumType.STRING)
+    private MemberStatus status;
 
     // @Builder // 빌더의 경우에는 여러가지 이슈가 발생할수 있음
     private Member(Email email, String nickname, String passwordHash) {

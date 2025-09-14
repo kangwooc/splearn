@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static tobyspring.splearn.splearn.domain.member.MemberFixture.createMemberRegisterRequest;
+import static tobyspring.splearn.splearn.domain.member.MemberFixture.createPasswordEncoder;
 
 class MemberTest {
     Member member;
@@ -12,19 +14,9 @@ class MemberTest {
 
     @BeforeEach
     void setUp() {
-        this.encoder = new PasswordEncoder() {
-            @Override
-            public String encode(String rawPassword) {
-                return rawPassword.toUpperCase();
-            }
+        this.encoder = createPasswordEncoder();
 
-            @Override
-            public boolean matches(String rawPassword, String passwordHash) {
-                return encode(rawPassword).equals(passwordHash);
-            }
-        };
-
-        member = Member.register(new MemberRegisterRequest("toby@splearn.app", "toby", "secret"), this.encoder);
+        member = Member.register(createMemberRegisterRequest(), this.encoder);
     }
 
     @Test
@@ -109,7 +101,7 @@ class MemberTest {
 
     @Test
     void invalidEmail() {
-        assertThatThrownBy(() -> Member.register(new MemberRegisterRequest("invalid email", "toby", "secret"), this.encoder))
+        assertThatThrownBy(() -> Member.register(createMemberRegisterRequest("invalid email"), this.encoder))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
