@@ -26,7 +26,7 @@ public class Member {
     }
 
     // 정적 팩토리 메소드
-    public static Member create(MemberCreateRequest request, PasswordEncoder encoder) {
+    public static Member register(MemberRegisterRequest request, PasswordEncoder encoder) {
         Member member = new Member();
 
         member.email = new Email(request.email());
