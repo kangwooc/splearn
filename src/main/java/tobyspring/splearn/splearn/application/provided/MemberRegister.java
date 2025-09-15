@@ -9,4 +9,6 @@ import tobyspring.splearn.splearn.domain.member.MemberRegisterRequest;
  */
 public interface MemberRegister {
     Member register(@Valid MemberRegisterRequest request);
+
+    Member activate(@Valid Long memberId);
 }
