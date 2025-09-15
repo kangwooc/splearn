@@ -1,7 +1,10 @@
 package tobyspring.splearn.splearn.application.required;
 
 import org.springframework.data.repository.Repository;
+import tobyspring.splearn.splearn.domain.member.Email;
 import tobyspring.splearn.splearn.domain.member.Member;
+
+import java.util.Optional;
 
 /**
  * 회원 정보를 저장하거나 조회한다.
@@ -9,4 +12,5 @@ import tobyspring.splearn.splearn.domain.member.Member;
 public interface MemberRepository extends Repository<Member, Long> {
     Member save(Member member);
 
+    Optional<Member> findByEmail(Email email);
 }
