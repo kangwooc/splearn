@@ -68,22 +68,22 @@ class MemberTest {
 
     @Test
     void verifyPassword() {
-        assertThat(member.verifyPassword("secret", this.encoder)).isTrue();
+        assertThat(member.verifyPassword("verysecret", this.encoder)).isTrue();
         assertThat(member.verifyPassword("hello", this.encoder)).isFalse();
     }
 
     @Test
     void changeNickname() {
-        assertThat(this.member.getNickname()).isEqualTo("toby");
+        assertThat(this.member.getNickname()).isEqualTo("Charlie");
 
-        member.changeNickname("charlie");
-        assertThat(this.member.getNickname()).isEqualTo("charlie");
+        member.changeNickname("charlie2");
+        assertThat(this.member.getNickname()).isEqualTo("charlie2");
     }
 
     @Test
     void changePassword() {
-        member.changePassword("verySecret");
-        assertThat(this.member.getPasswordHash()).isEqualTo("verySecret");
+        member.changePassword("verySecret2");
+        assertThat(this.member.getPasswordHash()).isEqualTo("verySecret2");
     }
 
     @Test

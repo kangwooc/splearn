@@ -2,12 +2,16 @@ package tobyspring.splearn.splearn.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import tobyspring.splearn.splearn.application.provided.MemberRegister;
 import tobyspring.splearn.splearn.application.required.EmailSender;
 import tobyspring.splearn.splearn.application.required.MemberRepository;
 import tobyspring.splearn.splearn.domain.member.*;
 
 @Service
+@Transactional
+@Validated
 @RequiredArgsConstructor
 public class MemberService implements MemberRegister {
     private final MemberRepository memberRepository;
