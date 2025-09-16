@@ -2,6 +2,9 @@ package tobyspring.splearn.splearn.domain.member;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import tobyspring.splearn.splearn.domain.Member;
+import tobyspring.splearn.splearn.domain.MemberStatus;
+import tobyspring.splearn.splearn.domain.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

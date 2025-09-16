@@ -8,7 +8,7 @@ import tobyspring.splearn.splearn.application.provided.MemberFinder;
 import tobyspring.splearn.splearn.application.provided.MemberRegister;
 import tobyspring.splearn.splearn.application.required.EmailSender;
 import tobyspring.splearn.splearn.application.required.MemberRepository;
-import tobyspring.splearn.splearn.domain.member.*;
+import tobyspring.splearn.splearn.domain.*;
 
 @Service
 @Transactional

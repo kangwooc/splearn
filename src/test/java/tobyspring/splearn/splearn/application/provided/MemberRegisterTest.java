@@ -8,6 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.Transactional;
 import tobyspring.splearn.splearn.SplearnTestConfiguration;
+import tobyspring.splearn.splearn.domain.DuplicateEmailException;
+import tobyspring.splearn.splearn.domain.Member;
+import tobyspring.splearn.splearn.domain.MemberRegisterRequest;
+import tobyspring.splearn.splearn.domain.MemberStatus;
 import tobyspring.splearn.splearn.domain.member.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -21,6 +25,8 @@ record MemberRegisterTest(MemberRegister memberRegister, EntityManager entityMan
     @Test
     void registerMember() {
         Member member = memberRegister.register(MemberFixture.createMemberRegisterRequest());
+
+        System.out.println(member);
 
         assertThat(member.getId()).isNotNull();
         assertThat(member.getStatus()).isEqualTo(MemberStatus.PENDING);

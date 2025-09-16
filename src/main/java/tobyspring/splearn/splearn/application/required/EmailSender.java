@@ -1,6 +1,6 @@
 package tobyspring.splearn.splearn.application.required;
 
-import tobyspring.splearn.splearn.domain.member.Email;
+import tobyspring.splearn.splearn.domain.Email;
 
 /**
  * 이메일을 발송한다.

@@ -1,6 +1,6 @@
 package tobyspring.splearn.splearn.application.provided;
 
-import tobyspring.splearn.splearn.domain.member.Member;
+import tobyspring.splearn.splearn.domain.Member;
 
 /**
  * 회원은 조회한다.

@@ -1,4 +1,4 @@
-package tobyspring.splearn.splearn.domain.member;
+package tobyspring.splearn.splearn.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
-import tobyspring.splearn.splearn.domain.AbstractEntity;
 
 import java.util.Objects;
 
@@ -15,7 +14,7 @@ import static org.springframework.util.Assert.state;
 
 @Entity
 @Getter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @NaturalIdCache // 영속성 컨텍스트에서 체크가 된다.
 public class Member extends AbstractEntity {
