@@ -1,16 +1,17 @@
-package tobyspring.splearn.splearn.application.required;
+package tobyspring.splearn.splearn.application.member.required;
 
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import tobyspring.splearn.splearn.domain.Member;
+import tobyspring.splearn.splearn.domain.member.Member;
+import tobyspring.splearn.splearn.domain.member.MemberStatus;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tobyspring.splearn.splearn.domain.MemberFixture.createMemberRegisterRequest;
-import static tobyspring.splearn.splearn.domain.MemberFixture.createPasswordEncoder;
+import static tobyspring.splearn.splearn.domain.member.MemberFixture.createMemberRegisterRequest;
+import static tobyspring.splearn.splearn.domain.member.MemberFixture.createPasswordEncoder;
 
 @DataJpaTest
 class MemberRepositoryTest {
@@ -31,6 +32,13 @@ class MemberRepositoryTest {
         assertThat(member.getId()).isNotNull();
 
         entityManager.flush();
+        // 영속화된 entity 삭제
+        entityManager.clear();
+
+        var found = memberRepository.findById(member.getId()).orElseThrow();
+        assertThat(found.getId()).isEqualTo(member.getId());
+        assertThat(found.getStatus()).isEqualTo(MemberStatus.PENDING);
+        assertThat(found.getDetail().getRegisteredAt()).isNotNull();
     }
 
     @Test

@@ -1,4 +1,4 @@
-package tobyspring.splearn.splearn.application.provided;
+package tobyspring.splearn.splearn.application.member.provided;
 
 import jakarta.persistence.EntityManager;
 import jakarta.validation.ConstraintViolationException;
@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.Transactional;
 import tobyspring.splearn.splearn.SplearnTestConfiguration;
-import tobyspring.splearn.splearn.domain.*;
+import tobyspring.splearn.splearn.domain.member.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;

@@ -1,4 +1,4 @@
-package tobyspring.splearn.splearn.domain;
+package tobyspring.splearn.splearn.domain.member;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.NaturalIdCache;
+import tobyspring.splearn.splearn.domain.AbstractEntity;
+import tobyspring.splearn.splearn.domain.shared.Email;
 
 import java.util.Objects;
 
@@ -14,9 +15,8 @@ import static org.springframework.util.Assert.state;
 
 @Entity
 @Getter
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = "detail")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@NaturalIdCache // 영속성 컨텍스트에서 체크가 된다.
 public class Member extends AbstractEntity {
     @NaturalId
     private Email email;
@@ -25,6 +25,7 @@ public class Member extends AbstractEntity {
 
     private MemberStatus status;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private MemberDetail detail;
 
     // 정적 팩토리 메소드
@@ -36,6 +37,8 @@ public class Member extends AbstractEntity {
         member.passwordHash = Objects.requireNonNull(encoder.encode(request.passwordHash()));
         member.status = MemberStatus.PENDING;
 
+        member.detail = MemberDetail.create();
+
         return member;
     }
 
@@ -43,13 +46,14 @@ public class Member extends AbstractEntity {
         state(status == MemberStatus.PENDING, "PENDING 상태가 아닙니다.");
 
         this.status = MemberStatus.ACTIVE;
+        this.detail.activate();
     }
-
 
     public void deactivate() {
         state(status == MemberStatus.ACTIVE, "ACTIVE 상태가 아닙니다");
 
         this.status = MemberStatus.DEACTIVATED;
+        this.detail.deactivate();
     }
 
     public boolean verifyPassword(String password, PasswordEncoder encoder) {
@@ -62,6 +66,12 @@ public class Member extends AbstractEntity {
 
     public void changePassword(String password) {
         this.passwordHash = Objects.requireNonNull(password);
+    }
+
+    public void updateInfo(MemberInfoUpdateRequest request) {
+        this.nickname = Objects.requireNonNull(request.nickname());
+
+        this.detail.updateInfo(request);
     }
 
     public boolean isActive() {

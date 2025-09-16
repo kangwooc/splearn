@@ -1,8 +1,8 @@
-package tobyspring.splearn.splearn.application.required;
+package tobyspring.splearn.splearn.application.member.required;
 
 import org.springframework.data.repository.Repository;
-import tobyspring.splearn.splearn.domain.Email;
-import tobyspring.splearn.splearn.domain.Member;
+import tobyspring.splearn.splearn.domain.shared.Email;
+import tobyspring.splearn.splearn.domain.member.Member;
 
 import java.util.Optional;
 
