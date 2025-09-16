@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.Transactional;
 import tobyspring.splearn.splearn.SplearnTestConfiguration;
 import tobyspring.splearn.splearn.domain.Member;
-import tobyspring.splearn.splearn.domain.member.MemberFixture;
+import tobyspring.splearn.splearn.domain.MemberFixture;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

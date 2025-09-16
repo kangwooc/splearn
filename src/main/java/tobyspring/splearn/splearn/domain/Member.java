@@ -25,6 +25,8 @@ public class Member extends AbstractEntity {
 
     private MemberStatus status;
 
+    private MemberDetail detail;
+
     // 정적 팩토리 메소드
     public static Member register(MemberRegisterRequest request, PasswordEncoder encoder) {
         Member member = new Member();

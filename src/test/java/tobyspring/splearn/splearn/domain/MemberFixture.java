@@ -1,7 +1,4 @@
-package tobyspring.splearn.splearn.domain.member;
-
-import tobyspring.splearn.splearn.domain.MemberRegisterRequest;
-import tobyspring.splearn.splearn.domain.PasswordEncoder;
+package tobyspring.splearn.splearn.domain;
 
 public class MemberFixture {
     public static MemberRegisterRequest createMemberRegisterRequest(String email) {

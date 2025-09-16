@@ -8,11 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.Transactional;
 import tobyspring.splearn.splearn.SplearnTestConfiguration;
-import tobyspring.splearn.splearn.domain.DuplicateEmailException;
-import tobyspring.splearn.splearn.domain.Member;
-import tobyspring.splearn.splearn.domain.MemberRegisterRequest;
-import tobyspring.splearn.splearn.domain.MemberStatus;
-import tobyspring.splearn.splearn.domain.member.*;
+import tobyspring.splearn.splearn.domain.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;

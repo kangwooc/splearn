@@ -9,8 +9,8 @@ import tobyspring.splearn.splearn.domain.Member;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tobyspring.splearn.splearn.domain.member.MemberFixture.createMemberRegisterRequest;
-import static tobyspring.splearn.splearn.domain.member.MemberFixture.createPasswordEncoder;
+import static tobyspring.splearn.splearn.domain.MemberFixture.createMemberRegisterRequest;
+import static tobyspring.splearn.splearn.domain.MemberFixture.createPasswordEncoder;
 
 @DataJpaTest
 class MemberRepositoryTest {
