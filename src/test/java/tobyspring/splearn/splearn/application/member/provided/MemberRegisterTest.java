@@ -44,20 +44,53 @@ record MemberRegisterTest(MemberRegister memberRegister, EntityManager entityMan
 
     private void checkValidation(MemberRegisterRequest invalid) {
         Assertions.assertThatThrownBy(() -> memberRegister.register(invalid))
-            .isInstanceOf(ConstraintViolationException.class);
+                .isInstanceOf(ConstraintViolationException.class);
     }
 
     @Test
     void activate() {
-        Member member = memberRegister.register(MemberFixture.createMemberRegisterRequest());
-        entityManager.flush();
-        entityManager.clear();
+        Member member = register();
 
         member = memberRegister.activate(member.getId());
 
         entityManager.flush();
 
         assertThat(member.getStatus()).isEqualTo(MemberStatus.ACTIVE);
+        assertThat(member.getDetail().getActivatedAt()).isNotNull();
+    }
 
+    @Test
+    void deactivate() {
+        Member member = register();
+
+        member = memberRegister.activate(member.getId());
+
+        entityManager.flush();
+        entityManager.clear();
+
+        member = memberRegister.deactivate(member.getId());
+
+        assertThat(member.getStatus()).isEqualTo(MemberStatus.DEACTIVATED);
+        assertThat(member.getDetail().getDeactivatedAt()).isNotNull();
+    }
+
+    @Test
+    void updateInfo() {
+        Member member = register();
+
+        member = memberRegister.activate(member.getId());
+        entityManager.flush();
+        entityManager.clear();
+
+        member = memberRegister.updateInfo(member.getId(), new MemberInfoUpdateRequest("Peter", "toby100", "자기소개"));
+
+        assertThat(member.getDetail().getProfile().address()).isEqualTo("toby100");
+    }
+
+    private Member register() {
+        Member member = memberRegister.register(MemberFixture.createMemberRegisterRequest());
+        entityManager.flush();
+        entityManager.clear();
+        return member;
     }
 }

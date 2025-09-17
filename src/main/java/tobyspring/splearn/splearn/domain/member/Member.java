@@ -25,7 +25,6 @@ public class Member extends AbstractEntity {
 
     private MemberStatus status;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private MemberDetail detail;
 
     // 정적 팩토리 메소드

@@ -8,10 +8,7 @@ import tobyspring.splearn.splearn.application.member.provided.MemberFinder;
 import tobyspring.splearn.splearn.application.member.provided.MemberRegister;
 import tobyspring.splearn.splearn.application.member.required.EmailSender;
 import tobyspring.splearn.splearn.application.member.required.MemberRepository;
-import tobyspring.splearn.splearn.domain.member.DuplicateEmailException;
-import tobyspring.splearn.splearn.domain.member.Member;
-import tobyspring.splearn.splearn.domain.member.MemberRegisterRequest;
-import tobyspring.splearn.splearn.domain.member.PasswordEncoder;
+import tobyspring.splearn.splearn.domain.member.*;
 import tobyspring.splearn.splearn.domain.shared.Email;
 
 @Service
@@ -43,6 +40,22 @@ public class MemberModifyService implements MemberRegister {
         Member member = memberFinder.find(memberId);
         member.activate();
         // Spring Data를 사용하는 것
+        return memberRepository.save(member);
+    }
+
+    @Override
+    public Member deactivate(Long memberId) {
+        Member member = memberFinder.find(memberId);
+
+        member.deactivate();
+        // Spring Data를 사용하는 것
+        return memberRepository.save(member);
+    }
+
+    @Override
+    public Member updateInfo(Long memberId, MemberInfoUpdateRequest request) {
+        Member member = memberFinder.find(memberId);
+        member.updateInfo(request);
         return memberRepository.save(member);
     }
 

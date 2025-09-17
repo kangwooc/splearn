@@ -18,6 +18,9 @@
             <unique-constraint name="UK_MEMBER_EMAIL_ADDRESS">
                 <column-name>email_address</column-name>
             </unique-constraint>
+            <unique-constraint name="UK_MEMBER_DETAIL_ID">
+                <column-name>detail_id</column-name>
+            </unique-constraint>
         </table>
         <attributes>
             <basic name="nickname">
@@ -30,14 +33,42 @@
                 <column name="status" nullable="false" length="50"/>
                 <enumerated>STRING</enumerated>
             </basic>
+            <one-to-one name="detail" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
             <embedded name="email">
             </embedded>
         </attributes>
     </entity>
+
+    <entity class="tobyspring.splearn.splearn.domain.member.MemberDetail">
+        <table name = "member_detail">
+            <unique-constraint name="UK_MEMBER_DETAIL_PROFILE_ADDRESS">
+                <column-name>profile_address</column-name>
+            </unique-constraint>
+        </table>
+        <attributes>
+            <basic name="introduction"/>
+            <basic name="registeredAt"/>
+            <basic name="activatedAt"/>
+            <basic name="deactivatedAt"/>
+            <embedded name="profile"/>
+        </attributes>
+    </entity>
+
     <embeddable class="tobyspring.splearn.splearn.domain.shared.Email">
         <attributes>
             <basic name="address">
                 <column name="email_address" nullable="false" length="150"/>
+            </basic>
+        </attributes>
+    </embeddable>
+    <embeddable class="tobyspring.splearn.splearn.domain.member.Profile">
+        <attributes>
+            <basic name="address">
+                <column name="profile_address" length="20"/>
             </basic>
         </attributes>
     </embeddable>

@@ -4,4 +4,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
+  docker:
+    compose:
+      lifecycle-management: start_only

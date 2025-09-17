@@ -113,7 +113,7 @@ class MemberTest {
     void updateInfo() {
          member.activate();
 
-         var request = new MemberInfoUpdateRequest("Leo", "toby100", "자기소개");
+         var request = new MemberInfoUpdateRequest("Peter", "toby100", "자기소개");
          member.updateInfo(request);
          assertThat(member.getNickname()).isEqualTo(request.nickname());
          assertThat(member.getDetail().getProfile().address()).isEqualTo(request.profileAddress());
