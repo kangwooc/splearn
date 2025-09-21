@@ -93,4 +93,44 @@ record MemberRegisterTest(MemberRegister memberRegister, EntityManager entityMan
         entityManager.clear();
         return member;
     }
+
+    private Member register(String email) {
+        Member member = memberRegister.register(MemberFixture.createMemberRegisterRequest(email));
+        entityManager.flush();
+        entityManager.clear();
+        return member;
+    }
+
+    @Test
+    void updateInfoFail() {
+        Member member = register();
+
+        memberRegister.activate(member.getId());
+        memberRegister.updateInfo(member.getId(), new MemberInfoUpdateRequest("Peter", "toby100", "자기소개"));
+        entityManager.flush();
+        entityManager.clear();
+
+        Member member2 = register("toby2@splearn.app");
+        memberRegister.activate(member2.getId());
+        entityManager.flush();
+        entityManager.clear();
+
+        // member2는 기존의 member와 같은 주소를 사용할수 없다.
+        Assertions.assertThatThrownBy(
+                () -> memberRegister.updateInfo(member2.getId(), new MemberInfoUpdateRequest("James", "toby100", "introduction"))
+        ).isInstanceOf(DuplicateProfileException.class);
+
+        // 다른 프로필로는 사용이 가능함
+        memberRegister.updateInfo(member2.getId(), new MemberInfoUpdateRequest("James", "toby101", "introduction"));
+
+
+        // 다른 프로필 주소로는 변경이 가능
+        memberRegister.updateInfo(member.getId(), new MemberInfoUpdateRequest("Peter", "toby100", "자기소개"));
+        memberRegister.updateInfo(member.getId(), new MemberInfoUpdateRequest("Peter", "", "자기소개"));
+
+        // 하지만 중복되는 주소는 사용이 불가능함
+        Assertions.assertThatThrownBy(
+                () -> memberRegister.updateInfo(member.getId(), new MemberInfoUpdateRequest("Peter", "toby101", "introduction"))
+        ).isInstanceOf(DuplicateProfileException.class);
+    }
 }
